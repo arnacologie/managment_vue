@@ -22,7 +22,7 @@
           <td>{{project.status}}</td>
           <td>
             <button class="btn btn-danger" @click="deleteProject(project)">X</button>
-            <a class="btn btn-primary" v-bind:href="'/projects/create/' + project._id">&#9998;</a>
+            <a class="btn btn-primary" v-bind:href="'/project/create/' + project._id">&#9998;</a>
           </td>
         </tr>
       </tbody>

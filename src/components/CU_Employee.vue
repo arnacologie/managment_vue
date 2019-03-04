@@ -6,24 +6,43 @@
           <button type="button" class="close" @click="hideMessage()">X</button>
           <strong>Erreur!</strong>
         </div>
-        <h1>Créer un client</h1>
+        <h1>Créer un salairié</h1>
 
         <div class="info-form">
           <form>
             <div class="form-group">
-              <label for="name">Nom de l'entreprise</label>
+              <label for="family_name">Nom</label>
               <input
-                v-model="client.company_name"
+                v-model="employee.family_name"
                 type="text"
                 class="form-control"
-                id="company_name"
+                id="family_name"
                 aria-describedby="nameHelp"
               >
-              <br><label for="name">Adresse</label>
+              <label for="first_name">Prénom</label>
+              <input
+                v-model="employee.first_name"
+                type="text"
+                class="form-control"
+                id="first_name"
+                aria-describedby="nameHelp"
+              >
+              <label for="username">Pseudonyme</label>
+              <input
+                v-model="employee.username"
+                type="text"
+                class="form-control"
+                id="username"
+                aria-describedby="nameHelp"
+              >
+              <br><label for="date_of_birth">Date de naissance</label>
+              <date-picker id="date_of_birth" v-model="employee.date_of_birth" :config="options"></date-picker>
+
+              <br><label for="street">Adresse</label>
               <div v-if="this.updateMode">
-                <div v-for="(item, index) in client.address" :key="index">
+                <div v-for="(item, index) in employee.address" :key="index">
                   <div v-if="index == 'street'">
-                    <small id="nameHelp" class="form-text text-muted">Rue</small>
+                    <small id="street" class="form-text text-muted">Rue</small>
                     <input
                       v-model="address.street"
                       type="text"
@@ -77,57 +96,39 @@
                   aria-describedby="nameHelp"
                 >
               </div>
-              <br><label for="name">Contact Référent</label>
-              <small id="nameHelp" class="form-text text-muted">Prénom du référent</small>
+              <br><label for="phone_number">Numero de téléphone</label>
               <input
-                v-model="referent_contact.first_name"
-                type="text"
-                class="form-control"
-                id="first_name"
-                aria-describedby="nameHelp"
-              >
-              <small id="nameHelp" class="form-text text-muted">Nom du référent</small>
-              <input
-                v-model="referent_contact.family_name"
-                type="text"
-                class="form-control"
-                id="family_name"
-                aria-describedby="nameHelp"
-              >
-              <small id="nameHelp" class="form-text text-muted">Numéro du référent</small>
-              <input
-                v-model="referent_contact.phone_number"
+                v-model="employee.phone_number"
                 type="text"
                 class="form-control"
                 id="phone_number"
                 aria-describedby="nameHelp"
               >
-              <small id="nameHelp" class="form-text text-muted">Mail du référent</small>
+              <br><label for="email">Email</label>
               <input
-                v-model="referent_contact.mail"
+                v-model="employee.email"
                 type="text"
                 class="form-control"
-                id="mail"
+                id="email"
                 aria-describedby="nameHelp"
               >
-              <br><label for="name">Secteur d'activité</label>
-              <input
-                v-model="client.business_sector"
-                type="text"
-                class="form-control"
-                id="business_sector"
-                aria-describedby="nameHelp"
-              >
+              <br><label for="position">Poste</label>
+              <select v-model="employee.position" class="form-control" id="position">
+                <option>Project Manager</option>
+                <option>Developer</option>
+                <option>Commercial</option>
+                <option>Web Designer</option>
+              </select>
             </div>
           </form>
 
-          <button class="btn btn-primary" v-if="!this.client._id" @click="createClient()">
+          <button class="btn btn-primary" v-if="!this.employee._id" @click="createEmployee()">
             <span>Créer</span>
           </button>
-          <button class="btn btn-primary" v-if="this.client._id" @click="updateClient()">
+          <button class="btn btn-primary" v-if="this.employee._id" @click="updateEmployee()">
             <span>Mettre à jour</span>
           </button>
-          <button class="btn btn-primary" @click="newClient()">Vider les champs</button>
+          <button class="btn btn-primary" @click="newEmployee()">Vider les champs</button>
         </div>
       </div>
     </div>
@@ -137,46 +138,46 @@
 <script>
 /* eslint-disable */
 import { APIService } from "../APIService";
-
 const apiService = new APIService();
+import datePicker from 'vue-bootstrap-datetimepicker';
+import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
 
 export default {
-  name: "CU_Client",
+  name: "CU_Employee",
 
-  components: {},
+  components: {
+    datePicker
+  },
 
   data() {
     return {
+      date : new Date(),
+      options : {
+        format: 'DD/MM/YYYY',
+        useCurrent: false
+      },
       updateMode : false,
       showError: false,
-      client: {},
+      employee: {},
       address : {
           street : '',
           city :  '',
           zip_code: ''
       },
-      referent_contact : {
-          first_name : '',
-          family_name : '',
-          phone_number : '',
-          mail : ''
-      }
     };
   },
 
   methods: {
-    createClient() {
-      this.client.address = this.address;
-      this.client.referent_contact = this.referent_contact;
-      
-      apiService.createClient(this.client).then(
+    createEmployee() {
+      this.employee.address = this.address;
+      apiService.createEmployee(this.employee).then(
         result => {
           console.log(result);
           if (result.status === 200) {
-            this.client = result.data;
+            this.employee = result.data;
             console.log(result.status)
-            alert("Client created");
-            this.$router.push('/clients')
+            alert("Employee created");
+            this.$router.push('/employees')
           }
         },
         error => {
@@ -185,33 +186,31 @@ export default {
         }
       );
     },
-    updateClient() {
-      this.client.address = this.address;
-      this.client.referent_contact = this.referent_contact;
-      console.log(this.client.company_name);
-      apiService.updateClient(this.client).then(
+    updateEmployee() {
+      this.employee.address = this.address;
+      console.log(this.employee.company_name);
+      apiService.updateEmployee(this.employee).then(
         result => {
           console.log(result);
-          alert("Client updated");
-          this.$router.push('/clients')
+          alert("Employee updated");
+          this.$router.push('/employees')
         },
         error => {
           this.showError = true;
         }
       );
     },
-    newClient() {
-      this.client = {};
+    newEmployee() {
+      this.employee = {};
     }
   },
 
   mounted() {
     if (this.$route.params.id != ':id') {
-      apiService.getClient(this.$route.params.id).then(client => {
+      apiService.getEmployee(this.$route.params.id).then(employee => {
         this.updateMode = true;
-        this.client = client;
-        this.address = client.address;
-        this.referent_contact = client.referent_contact;
+        this.employee = employee;
+        this.address = employee.address;
         console.log(this.$route.params.id);
       });
     }

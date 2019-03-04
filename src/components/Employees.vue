@@ -26,7 +26,7 @@
           <td>{{employee.position}}</td>
           <td>
             <button class="btn btn-danger" @click="deleteEmployee(employee)">X</button>
-            <a class="btn btn-primary" v-bind:href="'/employees/create/' + employee._id">&#9998;</a>
+            <a class="btn btn-primary" v-bind:href="'/employee/create/' + employee._id">&#9998;</a>
           </td>
         </tr>
       </tbody>
@@ -68,7 +68,7 @@ export default {
 
   mounted() {
     this.getEmployees();
-    console.log("EMPLOYEES = "+this.employees.data)
+    console.log("EMPLOYEES = "+this.employees.data);
   }
 };
 </script>
