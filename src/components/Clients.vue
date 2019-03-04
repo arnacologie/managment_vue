@@ -19,7 +19,7 @@
           <td>{{client.business_sector}}</td>
           <td>
             <button class="btn btn-danger" @click="deleteClient(client)">X</button>
-            <a class="btn btn-primary" v-bind:href="'/clients/create/' + client._id">&#9998;</a>
+            <a class="btn btn-primary" v-bind:href="'/client/create/' + client._id">&#9998;</a>
           </td>
         </tr>
       </tbody>

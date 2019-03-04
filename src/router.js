@@ -6,6 +6,7 @@ import Home from './views/Home.vue'
 import Employee_Home from './views/Employee_Home.vue'
 import Project_Home from './views/Project_Home.vue'
 import Client_Home from './views/Client_Home.vue'
+import CU_Client from './components/CU_Client.vue'
 
 Vue.use(Router)
 
@@ -20,8 +21,13 @@ export default new Router({
     },
     {
       path: '/todos/create/:id',
-      name: 'CreateTodo',
+      name: 'CU_CLient',
       component: CreateTodo
+    },
+    {
+      path: '/client/create/:id',
+      name: 'CU_Client',
+      component: CU_Client
     },
     {
       path: '/clients',

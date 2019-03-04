@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Accueil</router-link> |
-      <router-link to="/todos/create/:id">Create Todo</router-link> |
+      <router-link to="/client/create/:id">Create Client</router-link> |
       <router-link to="/todos">List Todos</router-link> |
       <router-link to="/clients">Clients</router-link> |
       <router-link to="/employees">Salariés</router-link> |
