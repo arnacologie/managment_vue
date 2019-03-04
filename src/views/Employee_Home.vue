@@ -1,18 +1,18 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <Stats msg="Statistiques globales"/>
+    <Employees/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Stats from '@/components/Stats.vue'
+import Employees from '@/components/Employees.vue'
 
 export default {
-  name: 'home',
+  name: 'employee_home',
   components: {
-    Stats
+    Employees
   }
 }
 </script>

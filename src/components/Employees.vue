@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Todos ()</h1>
+    <h1>Liste des salariés</h1>
     <table class="table table-bordered table-hover">
       <thead>
         <tr>

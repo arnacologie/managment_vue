@@ -1,22 +1,26 @@
 <template>
   <div>
-    <h1>Todos ()</h1>
+    <h1>Liste des clients</h1>
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
           <th>#</th>
-          <th>Name</th>
-          <th>ID</th>
+          <th>Nom de l'entreprise</th>
+          <th>Adresse</th>
+          <th>Contact Référent</th>
+          <th>Secteur d'activité</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="todo in todos" :key="todo._id">
+        <tr v-for="client in clients" :key="client._id">
           <th></th>
-          <td>{{todo.name}}</td>
-          <td>{{todo._id}}</td>
+          <td>{{client.company_name}}</td>
+          <td><p v-for="item in client.address" :key="item">{{item}} </p></td>
+          <td><p v-for="item in client.referent_contact" :key="item">{{item}} </p></td>
+          <td>{{client.business_sector}}</td>
           <td>
-            <button class="btn btn-danger" @click="deleteTodo(todo)">X</button>
-            <a class="btn btn-primary" v-bind:href="'/todos/create/' + todo._id">&#9998;</a>
+            <button class="btn btn-danger" @click="deleteClient(client)">X</button>
+            <a class="btn btn-primary" v-bind:href="'/clients/create/' + client._id">&#9998;</a>
           </td>
         </tr>
       </tbody>
@@ -35,23 +39,22 @@ export default {
 
   data() {
     return {
-      todos: [],
-      numberOfTodos: 0
+      clients: [],
     };
   },
 
   methods: {
-    getTodos() {
-      apiService.getTodos().then(data => {
-        this.todos = data;
+    getClients() {
+      apiService.getClients().then(data => {
+        this.clients = data;
         this.numberOfProducts = data.count;
       });
     },
-    deleteTodo(todo) {
-      apiService.deleteTodo(todo).then(r => {
+    deleteClient(client) {
+      apiService.deleteClient(client).then(r => {
         if (r.status === 200) {
           alert("Todo deleted");
-          this.getTodos();
+          this.getClients();
         }
         console.log(r.status);
       });
@@ -59,8 +62,8 @@ export default {
   },
 
   mounted() {
-    this.getTodos();
-    console.log("TODOS = "+this.todos.data)
+    this.getClients();
+    console.log("CLIENTS = "+this.clients.data)
   }
 };
 </script>
