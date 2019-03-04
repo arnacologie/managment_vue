@@ -1,10 +1,10 @@
-<template lang=html>
-
+<template>
   <div>
     <h1>Liste des clients</h1>
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
+          <th>#</th>
           <th>Nom de l'entreprise</th>
           <th>Adresse</th>
           <th>Contact Référent</th>
@@ -13,6 +13,7 @@
       </thead>
       <tbody>
         <tr v-for="client in clients" :key="client._id">
+          <th></th>
           <td>{{client.company_name}}</td>
           <td><p v-for="item in client.address" :key="item">{{item}} </p></td>
           <td><p v-for="item in client.referent_contact" :key="item">{{item}} </p></td>

@@ -4,7 +4,6 @@
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
-          <th>#</th>
           <th>Nom</th>
           <th>Description</th>
           <th>Date de début</th>
@@ -15,7 +14,6 @@
       </thead>
       <tbody>
         <tr v-for="project in projects" :key="project._id">
-          <th></th>
           <td>{{project.name}}</td>
           <td>{{project.desc}}</td>
           <td>{{project.date_start}}</td>

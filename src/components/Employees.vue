@@ -4,7 +4,6 @@
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
-          <th>#</th>
           <th>Nom</th>
           <th>Prenom</th>
           <th>Pseudo</th>
@@ -17,12 +16,11 @@
       </thead>
       <tbody>
         <tr v-for="employee in employees" :key="employee._id">
-          <th></th>
           <td>{{employee.family_name}}</td>
           <td>{{employee.first_name}}</td>
           <td>{{employee.username}}</td>
           <td>{{employee.date_of_birth}}</td>
-          <td><p v-for="item in employee.address" :key="item">{{item}} </p></td>
+          <td><span v-for="item in employee.address" :key="item">{{item}} </span></td>
           <td>{{employee.phone_number}}</td>
           <td>{{employee.email}}</td>
           <td>{{employee.position}}</td>
