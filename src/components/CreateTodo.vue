@@ -30,7 +30,6 @@
           <button class="btn btn-primary" v-if="this.todo._id" @click="updateTodo()">
             <span>Update</span>
           </button>
-          
           <button class="btn btn-primary" @click="newTodo()">New..</button>
         </div>
       </div>
@@ -39,6 +38,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import { APIService } from "../APIService";
 
 const apiService = new APIService();

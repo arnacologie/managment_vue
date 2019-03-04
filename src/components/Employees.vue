@@ -5,18 +5,30 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Name</th>
-          <th>ID</th>
+          <th>Nom</th>
+          <th>Prenom</th>
+          <th>Pseudo</th>
+          <th>Date de naissance</th>
+          <th>Adresse</th>
+          <th>Numéro de tel</th>
+          <th>Email</th>
+          <th>Poste</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="todo in todos" :key="todo._id">
+        <tr v-for="employee in employees" :key="employee._id">
           <th></th>
-          <td>{{todo.name}}</td>
-          <td>{{todo._id}}</td>
+          <td>{{employee.family_name}}</td>
+          <td>{{employee.first_name}}</td>
+          <td>{{employee.username}}</td>
+          <td>{{employee.date_of_birth}}</td>
+          <td><p v-for="item in employee.address" :key="item">{{item}} </p></td>
+          <td>{{employee.phone_number}}</td>
+          <td>{{employee.email}}</td>
+          <td>{{employee.position}}</td>
           <td>
-            <button class="btn btn-danger" @click="deleteTodo(todo)">X</button>
-            <a class="btn btn-primary" v-bind:href="'/todos/create/' + todo._id">&#9998;</a>
+            <button class="btn btn-danger" @click="deleteEmployee(employee)">X</button>
+            <a class="btn btn-primary" v-bind:href="'/employees/create/' + employee._id">&#9998;</a>
           </td>
         </tr>
       </tbody>
@@ -29,29 +41,27 @@ import { APIService } from "../APIService";
 const apiService = new APIService();
 
 export default {
-  name: "ListTodo",
+  name: "Employees",
 
   components: {},
 
   data() {
     return {
-      todos: [],
-      numberOfTodos: 0
+      employees: [],
     };
   },
 
   methods: {
-    getTodos() {
-      apiService.getTodos().then(data => {
-        this.todos = data;
-        this.numberOfProducts = data.count;
+    getEmployees() {
+      apiService.getEmployees().then(data => {
+        this.employees = data;
       });
     },
-    deleteTodo(todo) {
-      apiService.deleteTodo(todo).then(r => {
+    deleteEmployee(employee) {
+      apiService.deleteEmployee(employee).then(r => {
         if (r.status === 200) {
-          alert("Todo deleted");
-          this.getTodos();
+          alert("Employee deleted");
+          this.getEmployees();
         }
         console.log(r.status);
       });
@@ -59,8 +69,8 @@ export default {
   },
 
   mounted() {
-    this.getTodos();
-    console.log("TODOS = "+this.todos.data)
+    this.getEmployees();
+    console.log("EMPLOYEES = "+this.employees.data)
   }
 };
 </script>

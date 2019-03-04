@@ -1,6 +1,6 @@
+/* eslint-disable */
 import Vue from 'vue'
 import Router from 'vue-router'
-//  import Home from './views/Home.vue'
 import CreateTodo from './components/CreateTodo.vue'
 import Home from './views/Home.vue'
 import Employee_Home from './views/Employee_Home.vue'

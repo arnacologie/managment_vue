@@ -6,6 +6,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 // @ is an alias to /src
 import Clients from '@/components/Clients.vue'
 

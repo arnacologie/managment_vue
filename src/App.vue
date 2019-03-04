@@ -6,7 +6,7 @@
       <router-link to="/todos">List Todos</router-link> |
       <router-link to="/clients">Clients</router-link> |
       <router-link to="/employees">Salariés</router-link> |
-      <router-link to="/projects">Projets</router-link> 
+      <router-link to="/projects">Projets</router-link>
     </div>
     <router-view/>
   </div>

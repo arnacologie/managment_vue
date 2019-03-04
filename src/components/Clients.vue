@@ -33,7 +33,7 @@ import { APIService } from "../APIService";
 const apiService = new APIService();
 
 export default {
-  name: "ListTodo",
+  name: "Clients",
 
   components: {},
 
@@ -47,7 +47,6 @@ export default {
     getClients() {
       apiService.getClients().then(data => {
         this.clients = data;
-        this.numberOfProducts = data.count;
       });
     },
     deleteClient(client) {

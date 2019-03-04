@@ -5,18 +5,26 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Name</th>
-          <th>ID</th>
+          <th>Nom</th>
+          <th>Description</th>
+          <th>Date de début</th>
+          <th>Date de fin</th>
+          <th>Montant total</th>
+          <th>Statut du projet</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="todo in todos" :key="todo._id">
+        <tr v-for="project in projects" :key="project._id">
           <th></th>
-          <td>{{todo.name}}</td>
-          <td>{{todo._id}}</td>
+          <td>{{project.name}}</td>
+          <td>{{project.desc}}</td>
+          <td>{{project.date_start}}</td>
+          <td>{{project.date_end}}</td>
+          <td>{{project.total_cost}}</td>
+          <td>{{project.status}}</td>
           <td>
-            <button class="btn btn-danger" @click="deleteTodo(todo)">X</button>
-            <a class="btn btn-primary" v-bind:href="'/todos/create/' + todo._id">&#9998;</a>
+            <button class="btn btn-danger" @click="deleteProject(project)">X</button>
+            <a class="btn btn-primary" v-bind:href="'/projects/create/' + project._id">&#9998;</a>
           </td>
         </tr>
       </tbody>
@@ -29,47 +37,40 @@ import { APIService } from "../APIService";
 const apiService = new APIService();
 
 export default {
-  name: "ListTodo",
-
+  name: "Projects",
   components: {},
-
   data() {
     return {
-      todos: [],
-      numberOfTodos: 0
+      projects: [],
     };
   },
-
   methods: {
-    getTodos() {
-      apiService.getTodos().then(data => {
-        this.todos = data;
-        this.numberOfProducts = data.count;
+    getProjects() {
+      apiService.getProjects().then(data => {
+        this.projects = data;
       });
     },
-    deleteTodo(todo) {
-      apiService.deleteTodo(todo).then(r => {
+    deleteProject(project) {
+      apiService.deleteProject(project).then(r => {
         if (r.status === 200) {
-          alert("Todo deleted");
-          this.getTodos();
+          alert("Project deleted");
+          this.getProjects();
         }
         console.log(r.status);
       });
     }
   },
-
   mounted() {
-    this.getTodos();
-    console.log("TODOS = "+this.todos.data)
+    this.getProjects();
+    console.log("PROJECTS "+this.projects.data)
   }
 };
-</script>
 
+</script>
 <style scoped>
 .list-horizontal li {
   display: inline-block;
 }
-
 .list-horizontal li:before {
   content: "\00a0\2022\00a0\00a0";
 
@@ -79,7 +80,6 @@ export default {
 
   font-size: 11px;
 }
-
 .list-horizontal li:first-child:before {
   content: "";
 }
